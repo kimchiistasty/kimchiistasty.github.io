@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dice</title>
+    <script>
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        var nums = [0,0,0,0,0,0,0];
+        function roll() {
+            var values = [0,0,0,0,0,0];
+            for(var i=1;i<6;++i)
+            {
+                var a = Math.floor(Math.random() * 6) + 1;
+                values[i] = a;
+                switch(a)
+                {
+                    case 1:
+                        document.getElementById("die"+i).outerHTML='<img src="one die.png" id="die' + i + '" height=100 width=100>';
+                        break;
+                    case 2:
+                        document.getElementById("die"+i).outerHTML='<img src="two die.png" id="die' + i + '" height=100 width=100>';
+                        break;
+                    case 3:
+                        document.getElementById("die"+i).outerHTML='<img src="three die.png" id="die' + i + '" height=100 width=100>';
+                        break;
+                    case 4:
+                        document.getElementById("die"+i).outerHTML='<img src="four die.png" id="die' + i + '" height=100 width=100>';
+                        break;
+                    case 5:
+                       document.getElementById("die"+i).outerHTML='<img src="five die.png" id="die' + i + '" height=100 width=100>';
+                       break;
+                    case 6:
+                        document.getElementById("die"+i).outerHTML='<img src="six die.png" id="die' + i + '" height=100 width=100>';
+                        break;
+                }
+            }
+            for(var j=1; j < 7; ++j)
+            {
+                var n = 0;
+                for(var k=1;k<6;++k)
+                {
+                    if(values[k]==j)
+                    {
+                        ++n;
+                    }
+                }
+                nums[j]=n;
+            }
+            var n = 0;
+            for(var j=1; j < 7; ++j)
+            {
+                switch (nums[j])
+                {
+                    case 2:
+                        ++n;
+                        break;
+                    case 3:
+                        n+=10;
+                        break;
+                    case 4:
+                        n+=100;
+                        break;
+                    case 5:
+                        n += 1000;
+                        break;
+                }
+            }
+            if(!n)
+            {
+                if (nums==[0,1,1,1,1,1,0] || nums==[0,0,1,1,1,1,1])
+                {
+                    document.getElementById("result").innerText = "STRAIGHT! 3.086% chance."
+                } else {
+                    document.getElementById("result").innerText = "Difference! 6.173% chance."
+                }
+            }
+            if (n==1)
+            {
+                document.getElementById("result").innerText = "One pair! 46.296% chance.";
+            }
+            if (n==2)
+            {
+                document.getElementById("result").innerText = "Two pair! 23.148% chance.";
+            }
+            if (n==10)
+            {
+                document.getElementById("result").innerText = "Triple! 15.432% chance.";
+            }
+            if (n==11)
+            {
+                document.getElementById("result").innerText = "FULL HOUSE! 3.858% chance.";
+            }
+            if(n==100)
+            {
+                document.getElementById("result").innerText = "FOUR OF A KIND!!!!! 1.929% chance.";
+            }
+            if (n==1000)
+            {
+                document.getElementById("result").innerText = "FIVE OF A KIND!!!!!!!!!!!!!!!!!!! 0.077% chance.";
+            }
+            sleep(500);
+        }
+    </script>
+    <style>
+        .dice {
+            background-color: darkgreen;
+        }
+        .things {
+            background-color: black;
+        }
+        .button {
+            background-color: white;
+            border-color: white;
+            color: black;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .info {
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+    </style>
+</head>
+<body class="things">
+    <div class="dice">
+        <img src="six die.png" id="die1" height=100 width=100>
+        <img src="six die.png" id="die2" height=100 width=100>
+        <img src="six die.png" id="die3" height=100 width=100>
+        <img src="six die.png" id="die4" height=100 width=100>
+        <img src="six die.png" id="die5" height=100 width=100>
+    </div>
+    <button onclick="roll()" class="button">Roll the dice!</button>
+    <p id="result" class="info">N/A</p>
+</body>
+</html>
