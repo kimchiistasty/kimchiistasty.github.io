@@ -1,3 +1,3 @@
 # kimchiistasty.github.io
 
-[test](test)
+[dice.html](dice poker, i guess)
