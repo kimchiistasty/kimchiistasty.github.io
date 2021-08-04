@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dice</title>
     <script>
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
         var nums = [0,0,0,0,0,0,0];
+        var totpts=0;
         function roll() {
             var values = [0,0,0,0,0,0];
+            var points = 0;
             for(var i=1;i<6;++i)
             {
                 var a = Math.floor(Math.random() * 6) + 1;
                 values[i] = a;
+                points+=a;
                 switch(a)
                 {
                     case 1:
@@ -74,8 +74,12 @@
                 if (nums==[0,1,1,1,1,1,0] || nums==[0,0,1,1,1,1,1])
                 {
                     document.getElementById("result").innerText = "STRAIGHT! 3.086% chance."
+                    points+=30;
+                    points*=10;
                 } else {
                     document.getElementById("result").innerText = "Difference! 6.173% chance."
+                    points+=20;
+                    points*=6;
                 }
             }
             if (n==1)
@@ -85,24 +89,35 @@
             if (n==2)
             {
                 document.getElementById("result").innerText = "Two pair! 23.148% chance.";
+                points+=10;
+                points*=2;
             }
             if (n==10)
             {
                 document.getElementById("result").innerText = "Triple! 15.432% chance.";
+                points+=15;
+                points*=3;
             }
             if (n==11)
             {
                 document.getElementById("result").innerText = "FULL HOUSE! 3.858% chance.";
+                points+=25;
+                points*=10;
             }
             if(n==100)
             {
                 document.getElementById("result").innerText = "FOUR OF A KIND!!!!! 1.929% chance.";
+                points+=30;
+                points*=15;
             }
             if (n==1000)
             {
                 document.getElementById("result").innerText = "FIVE OF A KIND!!!!!!!!!!!!!!!!!!! 0.077% chance.";
+                points+=100;
+                points*=200;
             }
-            sleep(500);
+            totpts+=points;
+            document.getElementById("point").innerHTML = totpts;
         }
     </script>
     <style>
@@ -132,7 +147,9 @@
         <img src="six die.png" id="die4" height=100 width=100>
         <img src="six die.png" id="die5" height=100 width=100>
     </div>
-    <button onclick="roll()" class="button">Roll the dice!</button>
+    <p onclick="roll()" class="button">Roll the dice!</p>
     <p id="result" class="info">N/A</p>
+    <p id="point" classs="info">0</p>
+    <a target="new" class="info">kimchiistasty.github.io</a>
 </body>
 </html>
